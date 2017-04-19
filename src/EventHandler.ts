@@ -1,14 +1,18 @@
+export interface EventCallback {
+    ()
+}
+
 export class EventHandler {
     public events: (() => void)[] = [];
 
-    register(evt: string, callback: () => void) {
+    register(evt: string, callback: EventCallback) {
         this.events[evt] = this.events[evt] || [];
         this.events[evt] = callback;
     }
 
-    unregister(evt: string, callback: () => void) {
+    unregister(evt: string, callback: EventCallback) {
         if (this.events[evt] != null) {
-            this.events[evt].forEach((cb: () => void, i: number) => {
+            this.events[evt].forEach((cb: EventCallback, i: number) => {
                 if (cb === callback) this.events[evt][i] = null;
             });
         }
@@ -16,7 +20,7 @@ export class EventHandler {
 
     fire(evt: string) {
         if (this.events[evt] != null) {
-            this.events[evt].forEach((cb: () => void) => {
+            this.events[evt].forEach((cb: EventCallback) => {
                 if (typeof cb === 'function') cb();
             });
         }
