@@ -20,7 +20,5 @@
   "devDependencies": {
     "@types/node": "^6.0.69"
   },
-  "dependencies": {
-    "es6-promise": "^4.1.0"
-  }
+  "dependencies": {}
 }
