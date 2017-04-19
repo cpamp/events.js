@@ -1,15 +1,15 @@
 import { EventHandler, EventCallback } from "./EventHandler";
 
-export class $event {
+export class $events {
     static $eventHandlers: EventHandler[] = [];
     private $eventHandler: EventHandler = new EventHandler();
 
     constructor() {
-        $event.$eventHandlers.push(this.$eventHandler);
+        $events.$eventHandlers.push(this.$eventHandler);
     }
 
     static $broadcast(evt) {
-        $event.$eventHandlers.forEach((handler: EventHandler) => {
+        $events.$eventHandlers.forEach((handler: EventHandler) => {
             handler.fire(evt);
         });
     }
