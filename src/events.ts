@@ -29,4 +29,14 @@ export class $events {
         };
         this.$on(evt, cb);
     }
+
+    $destroy() {
+        var newHandler = new EventHandler();
+        $events.$eventHandlers.forEach((handler: EventHandler, i: number) => {
+            if (handler === this.$eventHandler) {
+                $events.$eventHandlers[i] = newHandler;
+            }
+        })
+        this.$eventHandler = newHandler;
+    }
 }

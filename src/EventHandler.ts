@@ -7,7 +7,7 @@ export class EventHandler {
 
     register(evt: string, callback: EventCallback) {
         this.events[evt] = this.events[evt] || [];
-        this.events[evt] = callback;
+        this.events[evt].push(callback);
     }
 
     unregister(evt: string, callback: EventCallback) {
