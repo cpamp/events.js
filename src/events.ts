@@ -14,6 +14,20 @@ export class $events {
         });
     }
 
+    static $extend(obj: Function) {
+        if (typeof obj === 'function') {
+            var proto = obj.prototype;
+            obj.prototype = Object.create($events.prototype);
+            for (var key in proto) {
+                obj.prototype[key] = proto[key];
+            }
+            Object.defineProperty(obj.prototype, 'constructor', {
+                enumerable: false,
+                value: obj
+            });
+        }
+    }
+
     $emit(evt: string) {
         this.$eventHandler.fire(evt);
     }
