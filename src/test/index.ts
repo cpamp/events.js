@@ -1,8 +1,13 @@
 import { $events } from "../events";
 
+var testCb = (key) => {
+    console.log(key + ' Testing');
+};
+
 function testObject() {
-    $events.call(this);
+    $events.call(this, 'testObject');
     this.$events = new $events();
+    this.$on('test', testCb);
 }
 $events.$extend(testObject);
 
@@ -23,6 +28,8 @@ t.$events.$on('world', () => {
     console.log('world');
 });
 
+$events.$broadcastTo('test', 'testObject');
+
 t.$on('inheritance', () => {
     console.log('inheritance');
 });
@@ -36,6 +43,7 @@ $events.$broadcast("test");
 t.$emit('inheritance');
 t.$events.$emit("test");
 t.$events.$emit('world');
+t.$remove('test', testCb);
 
 t.$events.$destroy();
 

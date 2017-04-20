@@ -2,15 +2,24 @@ import { EventHandler, EventCallback } from "./EventHandler";
 
 export class $events {
     static $eventHandlers: EventHandler[] = [];
-    private $eventHandler: EventHandler = new EventHandler();
+    private $eventHandler: EventHandler;
 
-    constructor() {
+    constructor(key: string = null) {
+        this.$eventHandler = new EventHandler(key);
         $events.$eventHandlers.push(this.$eventHandler);
     }
 
     static $broadcast(evt) {
         $events.$eventHandlers.forEach((handler: EventHandler) => {
             handler.fire(evt);
+        });
+    }
+
+    static $broadcastTo(evt: string, key: any) {
+        $events.$eventHandlers.forEach((handler: EventHandler) => {
+            if (handler.key === key) {
+                handler.fire(evt);
+            }
         });
     }
 
@@ -37,9 +46,9 @@ export class $events {
     }
 
     $once(evt: string, callback: EventCallback) {
-        var cb: EventCallback = () => {
-            callback();
-            this.$eventHandler.unregister(evt, cb);
+        var cb: EventCallback = (key: string) => {
+            callback(key);
+            this.$remove(evt, cb);
         };
         this.$on(evt, cb);
     }
@@ -52,5 +61,9 @@ export class $events {
             }
         })
         this.$eventHandler = newHandler;
+    }
+
+    $remove(evt: string, callback: EventCallback) {
+        this.$eventHandler.unregister(evt, callback);
     }
 }

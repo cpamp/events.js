@@ -1,9 +1,11 @@
 export interface EventCallback {
-    ()
+    (key: any)
 }
 
 export class EventHandler {
-    public events: (() => void)[] = [];
+    public events: EventCallback[] = [];
+
+    constructor(public key: any = null) { }
 
     register(evt: string, callback: EventCallback) {
         this.events[evt] = this.events[evt] || [];
@@ -21,7 +23,7 @@ export class EventHandler {
     fire(evt: string) {
         if (this.events[evt] != null) {
             this.events[evt].forEach((cb: EventCallback) => {
-                if (typeof cb === 'function') cb();
+                if (typeof cb === 'function') cb(this.key);
             });
         }
     }
