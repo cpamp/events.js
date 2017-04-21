@@ -7,22 +7,22 @@ export class EventHandler {
 
     constructor(public key: any = null) { }
 
-    register(evt: string, callback: EventCallback) {
-        this.events[evt] = this.events[evt] || [];
-        this.events[evt].push(callback);
+    register(event: string, callback: EventCallback) {
+        this.events[event] = this.events[event] || [];
+        this.events[event].push(callback);
     }
 
-    unregister(evt: string, callback: EventCallback) {
-        if (this.events[evt] != null) {
-            this.events[evt].forEach((cb: EventCallback, i: number) => {
-                if (cb === callback) this.events[evt][i] = null;
+    unregister(event: string, callback: EventCallback) {
+        if (this.events[event] != null) {
+            this.events[event].forEach((cb: EventCallback, i: number) => {
+                if (cb === callback) this.events[event][i] = null;
             });
         }
     }
 
-    fire(evt: string) {
-        if (this.events[evt] != null) {
-            this.events[evt].forEach((cb: EventCallback) => {
+    fire(event: string) {
+        if (this.events[event] != null) {
+            this.events[event].forEach((cb: EventCallback) => {
                 if (typeof cb === 'function') cb(this.key);
             });
         }

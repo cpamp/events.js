@@ -9,16 +9,16 @@ export class $events {
         $events.$eventHandlers.push(this.$eventHandler);
     }
 
-    static $broadcast(evt) {
+    static $broadcast(event) {
         $events.$eventHandlers.forEach((handler: EventHandler) => {
-            handler.fire(evt);
+            handler.fire(event);
         });
     }
 
-    static $broadcastTo(evt: string, key: any) {
+    static $broadcastTo(event: string, key: any) {
         $events.$eventHandlers.forEach((handler: EventHandler) => {
             if (handler.key === key) {
-                handler.fire(evt);
+                handler.fire(event);
             }
         });
     }
@@ -37,20 +37,20 @@ export class $events {
         }
     }
 
-    $emit(evt: string) {
-        this.$eventHandler.fire(evt);
+    $emit(event: string) {
+        this.$eventHandler.fire(event);
     }
 
-    $on(evt: string, callback: EventCallback) {
-        this.$eventHandler.register(evt, callback);
+    $on(event: string, callback: EventCallback) {
+        this.$eventHandler.register(event, callback);
     }
 
-    $once(evt: string, callback: EventCallback) {
+    $once(event: string, callback: EventCallback) {
         var cb: EventCallback = (key: string) => {
             callback(key);
-            this.$remove(evt, cb);
+            this.$remove(event, cb);
         };
-        this.$on(evt, cb);
+        this.$on(event, cb);
     }
 
     $destroy() {
@@ -63,7 +63,7 @@ export class $events {
         this.$eventHandler = newHandler;
     }
 
-    $remove(evt: string, callback: EventCallback) {
-        this.$eventHandler.unregister(evt, callback);
+    $remove(event: string, callback: EventCallback) {
+        this.$eventHandler.unregister(event, callback);
     }
 }
