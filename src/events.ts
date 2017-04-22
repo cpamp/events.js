@@ -12,7 +12,7 @@ export class $events {
 
     /**
      * Creates an instance of $events.
-     * @param {string} [key=null] Key for object type
+     * @param {string} [type=null] Key for object type
      * 
      * @memberOf $events
      */
