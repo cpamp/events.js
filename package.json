@@ -1,8 +1,8 @@
 {
-  "name": "events.js",
+  "name": "events-js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bin/events.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
